@@ -1,8 +1,12 @@
 /*
  * jQuery idleTimer plugin
- * by Paul irish. adapted by YUI idle timer by nzakas.
+ * by Paul irish. 
+ *   http://github.com/paulirish/yui-misc/tree/
  
- *
+ * adapted from YUI idle timer by nzakas:
+ *   http://github.com/nzakas/yui-misc/
+ 
+ 
  * Copyright (c) 2009 Nicholas C. Zakas
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
