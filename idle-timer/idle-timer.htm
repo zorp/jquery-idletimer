@@ -19,15 +19,15 @@
     
     (function($){
 
-        $(document).bind("idle", function(){
+        $(document).bind("idle.idleTimer", function(){
             $("#status").html("User is idle :(").css("backgroundColor", "silver");
         });
         
-        $(document).bind("active", function(){
+        $(document).bind("active.idleTimer", function(){
              $("#status").html("User is active :D").css("backgroundColor", "yellow");
         });
         
-        $.IdleTimer.start(10000);
+        $.idleTimer.start(10000);
     
     
     })(jQuery);

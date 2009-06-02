@@ -1,0 +1,26 @@
+jQuery Idle Timer Plugin
+
+
+Basic idea is presented here:
+  http://www.nczonline.net/blog/2009/06/02/detecting-if-the-user-is-idle-with-javascript-and-yui-3/
+  
+To use:
+
+
+$.idleTimer.start(10000);
+// start takes an optional argument that defines the idle timeout
+// timeout is in milliseconds; defaults to 30000
+        
+        
+$(document).bind("idle.idleTimer", function(){
+ // function you want to fire when the user goes idle
+});
+
+
+$(document).bind("active.idleTimer", function(){
+ // function you want to fire when the user becomes active again
+});
+
+
+$.idleTimer.stop();
+// stops the idle timer
