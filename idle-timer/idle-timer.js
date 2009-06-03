@@ -30,48 +30,48 @@
 
 (function($){
 
-$.idleTimer = {
+$.idleTimer = function(newTimeout){
 
-    idle    : false,        //indicates if the user is idle
-    tId     : -1,           //timeout ID
-    enabled : false,        //indicates if the idle timer is enabled
-    timeout : 30000,        //the amount of time (ms) before the user is considered idle
-
+    var idle    = false,        //indicates if the user is idle
+        tId     = -1,           //timeout ID
+        enabled = false,        //indicates if the idle timer is enabled
+        timeout = 30000,        //the amount of time (ms) before the user is considered idle
+        events  = 'mousemove keydown DOMMouseScroll mousewheel', // activity is one of these events
         
     /* (intentionally not documented)
      * Handles a user event indicating that the user isn't idle.
      * @param {Event} event A DOM2-normalized event object.
      * @return {void}
      */
-    handleUserEvent : function(){
+    handleUserEvent = function(){
     
         //clear any existing timeout
-        clearTimeout($.idleTimer.tId);
+        clearTimeout(tId);
         
         //if the idle timer is enabled
-        if ($.idleTimer.enabled){
+        if (enabled){
         
             //if it's idle, that means the user is no longer idle
-            if ($.idleTimer.idle){
-                $.idleTimer.toggleIdleState();           
+            if (idle){
+                toggleIdleState();           
             } else {
                 //set a new timeout
-                $.idleTimer.tId = setTimeout($.idleTimer.toggleIdleState, $.idleTimer.timeout);
+                tId = setTimeout(toggleIdleState, timeout);
             }
         }    
-    },
+      },
     
     /* (intentionally not documented)
      * Toggles the idle state and fires an appropriate event.
      * @return {void}
      */
-    toggleIdleState : function(){
+    toggleIdleState = function(){
     
         //toggle the state
-        $.idleTimer.idle = !$.idleTimer.idle;
+        idle = !idle;
         
         //fire appropriate event
-        $(document).trigger(($.idleTimer.idle ? "idle" : "active") + '.idleTimer');            
+        $(document).trigger((idle ? "idle" : "active") + '.idleTimer');            
     },
 
     
@@ -81,8 +81,8 @@ $.idleTimer = {
      * @method isRunning
      * @static
      */
-    isRunning: function(){
-        return $.idleTimer.enabled;
+    isRunning = function(){
+        return enabled;
     },
     
     /**
@@ -91,37 +91,8 @@ $.idleTimer = {
      * @method isIdle
      * @static
      */        
-    isIdle: function(){
-        return $.idleTimer.idle;
-    },
-    
-    /**
-     * Starts the idle timer. This adds appropriate event handlers
-     * and starts the first timeout.
-     * @param {int} newTimeout (Optional) A new value for the timeout period in ms.
-     * @return {void}
-     * @method start
-     * @static
-     */ 
-    start: function(newTimeout){
-        
-        //set to enabled
-        $.idleTimer.enabled = true;
-        
-        //set idle to false to begin with
-        $.idleTimer.idle = false;
-        
-        //assign a new timeout if necessary
-        if (typeof newTimeout == "number"){
-            $.idleTimer.timeout = newTimeout;
-        }
-        
-        //assign appropriate event handlers
-        $(document).bind('mousemove keydown',$.idleTimer.handleUserEvent);
-        
-        
-        //set a timeout to toggle state
-        $.idleTimer.tId = setTimeout($.idleTimer.toggleIdleState, $.idleTimer.timeout);
+    isIdle = function(){
+        return idle;
     },
     
     /**
@@ -131,19 +102,52 @@ $.idleTimer = {
      * @method stop
      * @static
      */         
-    stop: function(){
+    stop = function(){
     
         //set to disabled
-        $.idleTimer.enabled = false;
+        enabled = false;
         
         //clear any pending timeouts
-        clearTimeout($.idleTimer.tId);
+        clearTimeout(tId);
         
         //detach the event handlers
-        $(document).unbind('mousemove keydown',$.idleTimer.handleUserEvent);
+        $(document).unbind(events,handleUserEvent);
+    };
+    
+    /**
+     * Starts the idle timer. This adds appropriate event handlers
+     * and starts the first timeout.
+     * @param {int} newTimeout (Optional) A new value for the timeout period in ms.
+     * @return {void}
+     * @method $.idleTimer
+     * @static
+     */ 
+    
+    
+    //set to enabled
+    enabled = true;
+    
+    //set idle to false to begin with
+    idle = false;
+    
+    //assign a new timeout if necessary
+    if (typeof newTimeout == "number"){
+        timeout = newTimeout;
+    } else if (newTimeout === 'stop') {
+        stop();  
     }
     
-      }; // end of $.idleTimer{}
+    //assign appropriate event handlers
+    $(document).bind(events,handleUserEvent);
+    
+    
+    //set a timeout to toggle state
+    tId = setTimeout(toggleIdleState, timeout);
+  
+    
+
+    
+}; // end of $.idleTimer()
 
     
 
