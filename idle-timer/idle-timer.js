@@ -2,6 +2,7 @@
  * jQuery idleTimer plugin
  * by Paul irish. 
  *   http://github.com/paulirish/yui-misc/tree/
+ * MIT license
  
  * adapted from YUI idle timer by nzakas:
  *   http://github.com/nzakas/yui-misc/
@@ -33,34 +34,11 @@
 $.idleTimer = function(newTimeout){
 
     var idle    = false,        //indicates if the user is idle
-        tId     = -1,           //timeout ID
+        //tId     = -1,           //timeout ID
         enabled = false,        //indicates if the idle timer is enabled
         timeout = 30000,        //the amount of time (ms) before the user is considered idle
         events  = 'mousemove keydown DOMMouseScroll mousewheel', // activity is one of these events
         
-    /* (intentionally not documented)
-     * Handles a user event indicating that the user isn't idle.
-     * @param {Event} event A DOM2-normalized event object.
-     * @return {void}
-     */
-    handleUserEvent = function(){
-    
-        //clear any existing timeout
-        clearTimeout(tId);
-        
-        //if the idle timer is enabled
-        if (enabled){
-        
-            //if it's idle, that means the user is no longer idle
-            if (idle){
-                toggleIdleState();           
-            } else {
-                //set a new timeout
-                tId = setTimeout(toggleIdleState, timeout);
-            }
-        }    
-      },
-    
     /* (intentionally not documented)
      * Toggles the idle state and fires an appropriate event.
      * @return {void}
@@ -108,12 +86,38 @@ $.idleTimer = function(newTimeout){
         enabled = false;
         
         //clear any pending timeouts
-        clearTimeout(tId);
+        clearTimeout($.idleTimer.tId);
         
         //detach the event handlers
-        $(document).unbind(events,handleUserEvent);
-    };
+        $(document).unbind('.idleTimer');
+        'debuger';
+    },
     
+    
+    /* (intentionally not documented)
+     * Handles a user event indicating that the user isn't idle.
+     * @param {Event} event A DOM2-normalized event object.
+     * @return {void}
+     */
+    handleUserEvent = function(){
+    
+        //clear any existing timeout
+        clearTimeout($.idleTimer.tId);
+        
+        //if the idle timer is enabled
+        if (enabled){
+        
+            //if it's idle, that means the user is no longer idle
+            if (idle){
+                toggleIdleState();           
+            } else {
+                //set a new timeout
+                $.idleTimer.tId = setTimeout(toggleIdleState, timeout);
+            }
+        }    
+     };
+    
+      
     /**
      * Starts the idle timer. This adds appropriate event handlers
      * and starts the first timeout.
@@ -133,16 +137,17 @@ $.idleTimer = function(newTimeout){
     //assign a new timeout if necessary
     if (typeof newTimeout == "number"){
         timeout = newTimeout;
-    } else if (newTimeout === 'stop') {
-        stop();  
+    } else if (newTimeout === 'destroy') {
+        stop();
+        return;  
     }
     
     //assign appropriate event handlers
-    $(document).bind(events,handleUserEvent);
+    $(document).bind(events.split(' ').join('.idleTimer '),handleUserEvent);
     
     
     //set a timeout to toggle state
-    tId = setTimeout(toggleIdleState, timeout);
+    $.idleTimer.tId = setTimeout(toggleIdleState, timeout);
   
     
 
