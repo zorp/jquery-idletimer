@@ -37,7 +37,7 @@ $.idleTimer = function(newTimeout){
         //tId     = -1,           //timeout ID
         enabled = false,        //indicates if the idle timer is enabled
         timeout = 30000,        //the amount of time (ms) before the user is considered idle
-        events  = 'mousemove keydown DOMMouseScroll mousewheel', // activity is one of these events
+        events  = 'mousemove keydown DOMMouseScroll mousewheel click', // activity is one of these events
         
     /* (intentionally not documented)
      * Toggles the idle state and fires an appropriate event.
@@ -90,7 +90,6 @@ $.idleTimer = function(newTimeout){
         
         //detach the event handlers
         $(document).unbind('.idleTimer');
-        'debuger';
     },
     
     
