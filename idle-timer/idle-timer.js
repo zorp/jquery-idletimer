@@ -143,7 +143,7 @@ $.idleTimer = function(newTimeout){
     }
     
     //assign appropriate event handlers
-    $(document).bind(events.split(' ').join('.idleTimer '),handleUserEvent);
+    $(document).bind((events+' ').split(' ').join('.idleTimer '),handleUserEvent);
     
     
     //set a timeout to toggle state
