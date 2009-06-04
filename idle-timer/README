@@ -1,5 +1,7 @@
 jQuery Idle Timer Plugin
 
+Detail: http://paulirish.com/2009/jquery-idletimer-plugin/
+
 Fires a custom event when the user is idle. 
 
 Idle is defined by not...
@@ -13,9 +15,9 @@ Basic idea is presented here:
   
 To use:
 
-$.idleTimer(10000);
-// start takes an optional argument that defines the idle timeout
+// idleTimer() takes an optional argument that defines the idle timeout
 // timeout is in milliseconds; defaults to 30000
+$.idleTimer(10000);
         
         
 $(document).bind("idle.idleTimer", function(){
@@ -27,6 +29,5 @@ $(document).bind("active.idleTimer", function(){
  // function you want to fire when the user becomes active again
 });
 
-
+// pass the string 'destroy' to stop the timer
 $.idleTimer('destroy');
-// stops the idle timer
