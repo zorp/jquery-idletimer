@@ -1,6 +1,6 @@
 /*
  * jQuery idleTimer plugin
- * version 0.6.080605
+ * version 0.7.080609
  * by Paul irish. 
  *   http://github.com/paulirish/yui-misc/tree/
  * MIT license
@@ -37,9 +37,9 @@ $.idleTimer = function(newTimeout){
     //$.idleTimer.tId = -1     //timeout ID
 
     var idle    = false,        //indicates if the user is idle
-        enabled = false,        //indicates if the idle timer is enabled
+        enabled = true,        //indicates if the idle timer is enabled
         timeout = 30000,        //the amount of time (ms) before the user is considered idle
-        events  = 'mousemove keydown DOMMouseScroll mousewheel click', // activity is one of these events
+        events  = 'mousemove keydown DOMMouseScroll mousewheel mousedown', // activity is one of these events
         
     /* (intentionally not documented)
      * Toggles the idle state and fires an appropriate event.
@@ -105,16 +105,20 @@ $.idleTimer = function(newTimeout){
         //clear any existing timeout
         clearTimeout($.idleTimer.tId);
         
+        
+        
         //if the idle timer is enabled
         if (enabled){
         
+          
             //if it's idle, that means the user is no longer idle
             if (idle){
                 toggleIdleState();           
-            } else {
-                //set a new timeout
-                $.idleTimer.tId = setTimeout(toggleIdleState, timeout);
-            }
+            } 
+        
+            //set a new timeout
+            $.idleTimer.tId = setTimeout(toggleIdleState, timeout);
+            
         }    
      };
     
@@ -129,11 +133,6 @@ $.idleTimer = function(newTimeout){
      */ 
     
     
-    //set to enabled
-    enabled = true;
-    
-    //set idle to false to begin with
-    idle = false;
     
     //assign a new timeout if necessary
     if (typeof newTimeout == "number"){
