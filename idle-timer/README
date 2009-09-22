@@ -31,3 +31,8 @@ $(document).bind("active.idleTimer", function(){
 
 // pass the string 'destroy' to stop the timer
 $.idleTimer('destroy');
+
+
+
+// you can also query if it's idle or not
+$.data(document,'idleTimer');  // 'idle'  or 'active'
