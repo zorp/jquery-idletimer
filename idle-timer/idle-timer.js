@@ -1,7 +1,7 @@
 /*
  * jQuery idleTimer plugin
- * version 0.7.080609
- * by Paul irish. 
+ * version 0.8.092209
+ * by Paul Irish. 
  *   http://github.com/paulirish/yui-misc/tree/
  * MIT license
  
@@ -32,7 +32,7 @@
 
 (function($){
 
-$.idleTimer = function(newTimeout){
+$.idleTimer = function f(newTimeout){
 
     //$.idleTimer.tId = -1     //timeout ID
 
@@ -40,6 +40,7 @@ $.idleTimer = function(newTimeout){
         enabled = true,        //indicates if the idle timer is enabled
         timeout = 30000,        //the amount of time (ms) before the user is considered idle
         events  = 'mousemove keydown DOMMouseScroll mousewheel mousedown', // activity is one of these events
+      //f.olddate = undefined, // olddate used for getElapsedTime. stored on the function
         
     /* (intentionally not documented)
      * Toggles the idle state and fires an appropriate event.
@@ -50,31 +51,13 @@ $.idleTimer = function(newTimeout){
         //toggle the state
         idle = !idle;
         
+        // reset timeout counter
+        f.olddate = +new Date;
+        
         //fire appropriate event
         $(document).trigger(  $.data(document,'idleTimer', idle ? "idle" : "active" )  + '.idleTimer');            
     },
 
-    
-    /**
-     * Indicates if the idle timer is running or not.
-     * @return {Boolean} True if the idle timer is running, false if not.
-     * @method isRunning
-     * @static
-     */
-    isRunning = function(){
-        return enabled;
-    },
-    
-    /**
-     * Indicates if the user is idle or not.
-     * @return {Boolean} True if the user is idle, false if not.
-     * @method isIdle
-     * @static
-     */        
-    isIdle = function(){
-        return idle;
-    },
-    
     /**
      * Stops the idle timer. This removes appropriate event handlers
      * and cancels any pending timeouts.
@@ -133,13 +116,16 @@ $.idleTimer = function(newTimeout){
      */ 
     
     
+    f.olddate = f.olddate || +new Date;
     
     //assign a new timeout if necessary
     if (typeof newTimeout == "number"){
         timeout = newTimeout;
     } else if (newTimeout === 'destroy') {
         stop();
-        return;  
+        return this;  
+    } else if (newTimeout === 'getElapsedTime'){
+        return (+new Date) - f.olddate;
     }
     
     //assign appropriate event handlers

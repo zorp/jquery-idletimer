@@ -36,3 +36,7 @@ $.idleTimer('destroy');
 
 // you can also query if it's idle or not
 $.data(document,'idleTimer');  // 'idle'  or 'active'
+
+
+// get time elapsed since user when idle/active
+$.idleTimer('getElapsedTime'); // time since state change in ms
