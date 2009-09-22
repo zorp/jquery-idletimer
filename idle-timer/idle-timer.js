@@ -51,7 +51,7 @@ $.idleTimer = function(newTimeout){
         idle = !idle;
         
         //fire appropriate event
-        $(document).trigger((idle ? "idle" : "active") + '.idleTimer');            
+        $(document).trigger(  $.data(document,'idleTimer', idle ? "idle" : "active" )  + '.idleTimer');            
     },
 
     
@@ -148,7 +148,10 @@ $.idleTimer = function(newTimeout){
     
     //set a timeout to toggle state
     $.idleTimer.tId = setTimeout(toggleIdleState, timeout);
-  
+    
+    // assume the user is active for the first x seconds.
+    $.data(document,'idleTimer',"active");
+      
     
 
     

@@ -30,7 +30,7 @@
         
         $(document).bind("active.idleTimer", function(){
              $("#status").html("User is active :D").css("backgroundColor", "yellow");
-        }).trigger('active.idleTimer');;
+        });
         
         $.idleTimer(7000);
     
