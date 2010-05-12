@@ -75,21 +75,25 @@
 
 (function($){
 
-$.idleTimer = function f(newTimeout){
+$.idleTimer = function f(newTimeout, elem){
 
     //$.idleTimer.tId = -1     //timeout ID
 
     var idle    = false,        //indicates if the user is idle
         enabled = true,        //indicates if the idle timer is enabled
         timeout = 30000,        //the amount of time (ms) before the user is considered idle
-        events  = 'mousemove keydown DOMMouseScroll mousewheel mousedown', // activity is one of these events
-      //f.olddate = undefined, // olddate used for getElapsedTime. stored on the function
+        events  = 'mousemove keydown DOMMouseScroll mousewheel mousedown'; // activity is one of these events
+  //    f.olddate = undefined, // olddate used for getElapsedTime. stored on the function
+    
+    elem = elem || document;
+    
+    
         
     /* (intentionally not documented)
      * Toggles the idle state and fires an appropriate event.
      * @return {void}
      */
-    toggleIdleState = function(){
+    var toggleIdleState = function(){
     
         //toggle the state
         idle = !idle;
@@ -98,7 +102,7 @@ $.idleTimer = function f(newTimeout){
         f.olddate = +new Date;
         
         //fire appropriate event
-        $(document).trigger(  $.data(document,'idleTimer', idle ? "idle" : "active" )  + '.idleTimer');            
+        $(elem).trigger(  $.data(elem,'idleTimer', idle ? "idle" : "active" )  + '.idleTimer');            
     },
 
     /**
@@ -117,7 +121,7 @@ $.idleTimer = function f(newTimeout){
         clearTimeout($.idleTimer.tId);
         
         //detach the event handlers
-        $(document).unbind('.idleTimer');
+        $(elem).unbind('.idleTimer');
     },
     
     
@@ -172,14 +176,14 @@ $.idleTimer = function f(newTimeout){
     }
     
     //assign appropriate event handlers
-    $(document).bind($.trim((events+' ').split(' ').join('.idleTimer ')),handleUserEvent);
+    $(elem).bind($.trim((events+' ').split(' ').join('.idleTimer ')),handleUserEvent);
     
     
     //set a timeout to toggle state
     $.idleTimer.tId = setTimeout(toggleIdleState, timeout);
     
     // assume the user is active for the first x seconds.
-    $.data(document,'idleTimer',"active");
+    $.data(elem,'idleTimer',"active");
       
     
 
@@ -187,9 +191,9 @@ $.idleTimer = function f(newTimeout){
 }; // end of $.idleTimer()
 
 
-$.fn.idleTimer = function(){
+$.fn.idleTimer = function(newTimeout){
   
-  $.idleTimer()
+  this[0] && $.idleTimer(newTimeout,this[0]);
   
   return this;
 }
