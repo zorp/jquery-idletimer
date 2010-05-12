@@ -102,7 +102,13 @@ $.idleTimer = function f(newTimeout, elem){
         f.olddate = +new Date;
         
         //fire appropriate event
-        $(elem).trigger(  $.data(elem,'idleTimer', idle ? "idle" : "active" )  + '.idleTimer');            
+        
+        // create a custom event, but first, store the new state on the element
+        // and then append that string to a namespace
+        var event = jQuery.Event( $.data(elem,'idleTimer', idle ? "idle" : "active" )  + '.idleTimer'   );
+        event.stopPropagation();
+          
+        $(elem).trigger(event);            
     },
 
     /**
