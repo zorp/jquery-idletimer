@@ -12,6 +12,7 @@
     <h3><a href="http://paulirish.com/2009/jquery-idletimer-plugin">View full post about the jQuery IdleTimer here</a></h3>
     <p>The idle timer is built on <a href="http://jquery.com/">jQuery</a> and provides two events: <code>idle</code> and <code>active</code>, which fire when the user's idle state has changed.</p>
     <p>This example has an idle timeout of <span id="timeout">10</span> seconds. When you move your mouse over the page or start typing, you're considered "active". The status at the top of the screen changes to indicate your current state.</p>
+    <p>Now, as of version 0.9, <b>the textarea has its own idletimer instance</b> set to <span id="stimeout">10</span> seconds.</p>
     <div id="status" style="padding: 5px;">&nbsp;</div>
     <form>
         <label for="comment">Textarea:</label><br />
@@ -24,7 +25,7 @@
     
     (function($){
       
-        var timeout = 8000;
+        var timeout = 5000;
 
         $(document).bind("idle.idleTimer", function(){
             $("#status").html("User is idle :(").css("backgroundColor", "silver");
@@ -65,6 +66,8 @@
 
          $('textarea').idleTimer(stimeout);
 
+         // correct the page
+         $('#stimeout').text(stimeout/1000);
 
      })(jQuery);
 
