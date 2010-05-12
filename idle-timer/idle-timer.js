@@ -68,22 +68,26 @@
  $(elem).idleTimer(timeout|'destroy'|'getElapsedTime');
  $.data(elem,'idleTimer');  // 'idle'  or 'active'
  
- // it's a good idea to stay off of document, where the old API ones are held.
+ // if you're using the old $.idleTimer api, you should not do $(document).idleTimer(...)
+ 
+ // element bound timers will only watch for events inside of them.
+ // you may just want page-level activity, in which case you may set up
+ //   your timers on document, document.documentElement, and document.body
  
  
  ********/
 
 (function($){
 
-$.idleTimer = function f(newTimeout, elem){
-
-    //$.idleTimer.tId = -1     //timeout ID
-
+$.idleTimer = function(newTimeout, elem){
+  
+    // defaults that are to be stored as instance props on the elem
+    
     var idle    = false,        //indicates if the user is idle
         enabled = true,        //indicates if the idle timer is enabled
         timeout = 30000,        //the amount of time (ms) before the user is considered idle
         events  = 'mousemove keydown DOMMouseScroll mousewheel mousedown'; // activity is one of these events
-  //    f.olddate = undefined, // olddate used for getElapsedTime. stored on the function
+        
     
     elem = elem || document;
     
@@ -214,6 +218,7 @@ $.idleTimer = function f(newTimeout, elem){
 }; // end of $.idleTimer()
 
 
+// v0.9 API for defining multiple timers.
 $.fn.idleTimer = function(newTimeout){
   
   this[0] && $.idleTimer(newTimeout,this[0]);
