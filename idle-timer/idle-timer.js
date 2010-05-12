@@ -1,4 +1,4 @@
-/*
+/*!
  * jQuery idleTimer plugin
  * version 0.8.092209
  * by Paul Irish. 
@@ -7,8 +7,8 @@
  
  * adapted from YUI idle timer by nzakas:
  *   http://github.com/nzakas/yui-misc/
- 
- 
+*/ 
+/*
  * Copyright (c) 2009 Nicholas C. Zakas
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,6 +29,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
+
+ // API available in <= v0.8
+ /*******************************
+ 
+ // idleTimer() takes an optional argument that defines the idle timeout
+ // timeout is in milliseconds; defaults to 30000
+ $.idleTimer(10000);
+
+
+ $(document).bind("idle.idleTimer", function(){
+    // function you want to fire when the user goes idle
+ });
+
+
+ $(document).bind("active.idleTimer", function(){
+  // function you want to fire when the user becomes active again
+ });
+
+ // pass the string 'destroy' to stop the timer
+ $.idleTimer('destroy');
+ 
+ // you can query if the user is idle or not with data()
+ $.data(document,'idleTimer');  // 'idle'  or 'active'
+
+ // you can get time elapsed since user when idle/active
+ $.idleTimer('getElapsedTime'); // time since state change in ms
+ 
+ ********/
+ 
+ 
+ 
+ // API available in >= v0.9
+ /*************************
+ 
+ // bind to specific elements, allows for multiple timer instances
+ $(elem).idleTimer(timeout|'destroy'|'getElapsedTime');
+ $.data(elem,'idleTimer');  // 'idle'  or 'active'
+ 
+ // it's a good idea to stay off of document, where the old API ones are held.
+ 
+ 
+ ********/
 
 (function($){
 
@@ -143,6 +186,13 @@ $.idleTimer = function f(newTimeout){
     
 }; // end of $.idleTimer()
 
+
+$.fn.idleTimer = function(){
+  
+  $.idleTimer()
+  
+  return this;
+}
     
 
 })(jQuery);
