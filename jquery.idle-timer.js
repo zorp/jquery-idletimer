@@ -1,6 +1,6 @@
 /*!
  * jQuery idleTimer plugin
- * version 0.8.092209
+ * version 0.9.100511
  * by Paul Irish. 
  *   http://github.com/paulirish/yui-misc/tree/
  * MIT license
