@@ -99,6 +99,8 @@ $.idleTimer = function(newTimeout, elem){
      */
     var toggleIdleState = function(myelem){
     
+        // curse you, mozilla setTimeout lateness bug!
+        if (typeof myelem == 'number') myelem = undefined;
     
         var obj = $.data(myelem || elem,'idleTimerObj');
         
