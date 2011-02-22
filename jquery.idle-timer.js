@@ -86,7 +86,7 @@ $.idleTimer = function(newTimeout, elem){
     var idle    = false,        //indicates if the user is idle
         enabled = true,        //indicates if the idle timer is enabled
         timeout = 30000,        //the amount of time (ms) before the user is considered idle
-        events  = 'mousemove keydown DOMMouseScroll mousewheel mousedown'; // activity is one of these events
+        events  = 'mousemove keydown DOMMouseScroll mousewheel mousedown touchstart touchmove'; // activity is one of these events
 
 
     elem = elem || document;
