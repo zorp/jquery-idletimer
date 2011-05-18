@@ -185,7 +185,7 @@ $.idleTimer = function(newTimeout, elem){
      */
 
 
-    var obj = $.data(elem,'idleTimerObj') || new function(){};
+    var obj = $.data(elem,'idleTimerObj') || {};
 
     obj.olddate = obj.olddate || +new Date();
 
