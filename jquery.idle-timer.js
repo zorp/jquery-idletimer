@@ -100,7 +100,9 @@ $.idleTimer = function(newTimeout, elem){
     var toggleIdleState = function(myelem){
 
         // curse you, mozilla setTimeout lateness bug!
-        if (typeof myelem == 'number') myelem = undefined;
+        if (typeof myelem === 'number'){
+            myelem = undefined;
+        }
 
         var obj = $.data(myelem || elem,'idleTimerObj');
 
@@ -108,7 +110,7 @@ $.idleTimer = function(newTimeout, elem){
         obj.idle = !obj.idle;
 
         // reset timeout counter
-        obj.olddate = +new Date;
+        obj.olddate = +new Date();
 
         //fire appropriate event
 
@@ -185,16 +187,16 @@ $.idleTimer = function(newTimeout, elem){
 
     var obj = $.data(elem,'idleTimerObj') || new function(){};
 
-    obj.olddate = obj.olddate || +new Date;
+    obj.olddate = obj.olddate || +new Date();
 
     //assign a new timeout if necessary
-    if (typeof newTimeout == "number"){
+    if (typeof newTimeout === "number"){
         timeout = newTimeout;
     } else if (newTimeout === 'destroy') {
         stop(elem);
         return this;
     } else if (newTimeout === 'getElapsedTime'){
-        return (+new Date) - obj.olddate;
+        return (+new Date()) - obj.olddate;
     }
 
     //assign appropriate event handlers
@@ -222,8 +224,9 @@ $.idleTimer = function(newTimeout, elem){
 
 // v0.9 API for defining multiple timers.
 $.fn.idleTimer = function(newTimeout){
-
-    this[0] && $.idleTimer(newTimeout,this[0]);
+    if(this[0]){
+        $.idleTimer(newTimeout,this[0]);
+    }
 
     return this;
 };
