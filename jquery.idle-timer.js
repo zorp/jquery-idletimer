@@ -226,7 +226,7 @@ $.fn.idleTimer = function(newTimeout){
     this[0] && $.idleTimer(newTimeout,this[0]);
 
     return this;
-}
+};
 
 
 })(jQuery);
