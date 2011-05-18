@@ -223,9 +223,9 @@ $.idleTimer = function(newTimeout, elem){
 // v0.9 API for defining multiple timers.
 $.fn.idleTimer = function(newTimeout){
 
-  this[0] && $.idleTimer(newTimeout,this[0]);
+    this[0] && $.idleTimer(newTimeout,this[0]);
 
-  return this;
+    return this;
 }
 
 
