@@ -100,7 +100,6 @@ $.idleTimer = function(newTimeout, elem, opts){
 		events:  'mousemove keydown DOMMouseScroll mousewheel mousedown touchstart touchmove' // activity is one of these events
 	}, opts);
 
-	console.log(opts);
 
     elem = elem || document;
 
@@ -221,7 +220,6 @@ $.idleTimer = function(newTimeout, elem, opts){
     }
 
     //assign appropriate event handlers
-	console.log($.trim((opts.events+' ').split(' ').join('.idleTimer ')));
     $(elem).on($.trim((opts.events+' ').split(' ').join('.idleTimer ')),handleUserEvent);
 
 
