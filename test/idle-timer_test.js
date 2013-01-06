@@ -18,16 +18,16 @@
 			raises(block, [expected], [message])
 */
 
-	module( "jQuery#idle-timer", {
-		// This will run before each test in this module.
-		setup: function() {
-			this.elems = $("#qunit-fixture").children();
-		}
-	});
+	module("jQuery#idle-timer");
 
-	test( "needs tests", function() {
+	asyncTest( "default behavior", function() {
 		expect( 1 );
-		ok( true, "Untested Code is Broken Code." );
+
+		$( document ).on( "idle.idleTimer", function(){
+			ok( true, "idleTime fires at document by default" );
+			start();
+		});
+		$.idleTimer( 100 );
 	});
 
 }(jQuery));
