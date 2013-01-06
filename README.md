@@ -3,9 +3,8 @@ jQuery Idle Timer Plugin
 
 Download
 --------
-
-[min][https://raw.github.com/mikesherov/jquery-idletimer/master/dist/idle-timer.min.js]
-[max][https://raw.github.com/mikesherov/jquery-idletimer/master/dist/idle-timer.js]
+* https://raw.github.com/mikesherov/jquery-idletimer/master/dist/idle-timer.min.js
+* https://raw.github.com/mikesherov/jquery-idletimer/master/dist/idle-timer.js
 
 Purpose
 -------
