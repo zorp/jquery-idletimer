@@ -1,13 +1,3 @@
-/*!
- * jQuery idleTimer plugin
- * version 0.9.100511
- * by Paul Irish.
- *   http://github.com/paulirish/yui-misc/tree/
- * MIT license
-
- * adapted from YUI idle timer by nzakas:
- *   http://github.com/nzakas/yui-misc/
-*/
 /*
  * Copyright (c) 2009 Nicholas C. Zakas
  *
@@ -119,7 +109,7 @@ $.idleTimer = function(newTimeout, elem, opts){
         //toggle the state
         obj.idle = !obj.idle;
 
-        // reset timeout 
+        // reset timeout
         var elapsed = (+new Date()) - obj.olddate;
         obj.olddate = +new Date();
 
@@ -127,11 +117,12 @@ $.idleTimer = function(newTimeout, elem, opts){
         if (obj.idle && (elapsed < opts.timeout)) {
                 obj.idle = false;
                 clearTimeout($.idleTimer.tId);
-                if (opts.enabled)
-                  $.idleTimer.tId = setTimeout(toggleIdleState, opts.timeout);
+                if (opts.enabled) {
+                    $.idleTimer.tId = setTimeout(toggleIdleState, opts.timeout);
+                }
                 return;
         }
-        
+
         //fire appropriate event
 
         // create a custom event, but first, store the new state on the element
@@ -229,9 +220,9 @@ $.idleTimer = function(newTimeout, elem, opts){
 
 
     //set a timeout to toggle state. May wish to omit this in some situations
-	if (opts.startImmediately) {
-	    obj.tId = setTimeout(toggleIdleState, obj.timeout);
-	}
+    if (opts.startImmediately) {
+        obj.tId = setTimeout(toggleIdleState, obj.timeout);
+    }
 
     // assume the user is active for the first x seconds.
     $.data(elem,'idleTimer',"active");

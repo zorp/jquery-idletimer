@@ -1,6 +1,12 @@
 jQuery Idle Timer Plugin
 ========================
 
+Download
+--------
+
+[min][https://raw.github.com/mikesherov/jquery-idletimer/master/dist/idle-timer.min.js]
+[max][https://raw.github.com/mikesherov/jquery-idletimer/master/dist/idle-timer.js]
+
 Purpose
 -------
 
@@ -13,7 +19,7 @@ Fires a custom event when the user is "idle". Idle is defined by not...
 * using the keyboard
 
 Basic idea is presented here: http://www.nczonline.net/blog/2009/06/02/detecting-if-the-user-is-idle-with-javascript-and-yui-3/
-  
+
 Usage
 -----
 
@@ -27,7 +33,7 @@ $( document ).idleTimer();
 // idleTimer() takes an optional argument that defines the idle timeout
 // timeout is in milliseconds; defaults to 30000
 $( document ).idleTimer( 10000 );
-        
+
 $( document ).on( "idle.idleTimer", function(){
  // function you want to fire when the user goes idle
 });
