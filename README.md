@@ -17,10 +17,16 @@ Basic idea is presented here: http://www.nczonline.net/blog/2009/06/02/detecting
 Usage
 -----
 
+When called statically, the assumed element is `document`. `$.idleTimer()` is the same as `$( document ).idleTimer()`.
+The following examples all use the `document` instantiated version of the API to highlight the fact that you can attach an idleTimer to any element.
+
 ```javascript
+// simplest usage
+$( document ).idleTimer();
+
 // idleTimer() takes an optional argument that defines the idle timeout
 // timeout is in milliseconds; defaults to 30000
-$.idleTimer( 10000 );
+$( document ).idleTimer( 10000 );
         
 $( document ).on( "idle.idleTimer", function(){
  // function you want to fire when the user goes idle
@@ -31,17 +37,17 @@ $( document ).on( "active.idleTimer", function(){
 });
 
 // pass the string "destroy" to stop the timer
-$.idleTimer("destroy");
+$( document ).idleTimer("destroy");
 
 // you can also query if it's "idle" or "active"
-$.data( document, "idleTimer" );
+$( document ).data("idleTimer");
 
-// get time elapsed (in ms) since user when idle/active
-$.idleTimer("getElapsedTime");
+// get time elapsed (in ms) since the user went idle/active
+$( document ).idleTimer("getElapsedTime");
 
 // bind to specific elements, allows for multiple timer instances
 $( elem ).idleTimer( timeout|"destroy"|"getElapsedTime");
-$.data( elem, "idleTimer" );
+$( elem ).data("idleTimer");
 
 // You can optionally provide a second argument to override certain options, one
 // of which is the events that are considered to constitute activity.
